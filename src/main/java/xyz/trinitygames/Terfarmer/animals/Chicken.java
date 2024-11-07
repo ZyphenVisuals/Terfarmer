@@ -1,7 +1,7 @@
 package xyz.trinitygames.Terfarmer.animals;
 
 public class Chicken extends Animal {
-    static final String[] random_names =  {"Henk", "Luna", "Nugget", "Cluck", "Blueburg"};
+    static final String[] random_names =  {"Henk", "Luna", "Nugget", "Cluck", "Blueburg", "Cook"};
     
     public Chicken() {
         this.name = random_names[(int) (Math.random() * random_names.length)];
