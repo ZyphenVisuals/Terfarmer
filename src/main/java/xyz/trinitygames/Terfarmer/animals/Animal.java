@@ -82,4 +82,9 @@ public abstract class Animal implements Comparable<Animal> {
         // TODO: ensure this is correct
         return total_value - total_value_o;
     }
+
+    @Override
+    public String toString() {
+        return "NAME: " + this.getName() + ", VALUE: " + this.getValue() + ", INCOME: " + this.getIncome();
+    }
 }
