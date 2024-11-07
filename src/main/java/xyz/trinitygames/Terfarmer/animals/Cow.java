@@ -5,12 +5,12 @@ public class Cow extends Animal {
 
     public Cow() {
         this.name = random_names[(int) (Math.random() * random_names.length)];
-        // the lifetime of a cow will be between 10 and 30 days
-        this.life = (int) (Math.random() * 21) + 10;
-        // the value of a cow will be between 400 and 600
-        this.value = (int) (Math.random() * 201) + 400;
-        // the cow will return its investment in 15 days
-        this.income = this.value / 15;
+        // the lifetime of a cow will be between 20 and 50 days
+        this.life = (int) (Math.random() * 31) + 20;
+        // the value of a cow will be between 700 and 1000
+        this.value = (int) (Math.random() * 301) + 700;
+        // the cow will return its investment in 30 days
+        this.income = this.value / 30;
     }
     
     /**
