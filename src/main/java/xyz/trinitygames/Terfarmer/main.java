@@ -1,16 +1,14 @@
 package xyz.trinitygames.Terfarmer;
 
-import xyz.trinitygames.Terfarmer.animals.Cow;
-import xyz.trinitygames.Terfarmer.animals.Animal;
+import xyz.trinitygames.Terfarmer.io.OutputDevice;
+import xyz.trinitygames.Terfarmer.io.TerminalOutputDevice;
 
 public class main {
     public static void main(String[] args) {
-        Animal a = new Cow();
-        while(a.getLifetime() > 0) {
-            System.out.println(a);
-            a.age();
-        }
-        System.out.println(a);
-        a.age();
+        OutputDevice out = new TerminalOutputDevice();
+
+        Store store = new Store();
+
+        out.write(store.toString());
     }
 }
