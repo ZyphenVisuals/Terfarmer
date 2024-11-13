@@ -14,7 +14,13 @@ public class LocalPlayer implements Player, Serializable {
     int money;
     int day;
 
+    private String getSaveName() {
+        return System.getProperty("user.home") + File.separatorChar + "Terfarmer" + File.separatorChar + this.name + ".save";
+    }
+
     public LocalPlayer(String name) {
+
+
         this.name = name;
         this.money = 300;
         this.animals = new ArrayList<>();
@@ -142,17 +148,7 @@ public class LocalPlayer implements Player, Serializable {
 
     @Override
     public void save() {
-        // figure out the path to the save folder
-        String filename = System.getProperty("user.home") + File.separatorChar + "Terfarmer";
-
-        // check that the folder exists
-        File folder = new File(filename);
-        if(!folder.exists()){
-            boolean folderCreated = folder.mkdir();
-        }
-
-        // add the name of the save file
-        filename += File.separatorChar + this.name + ".save";
+        String filename = this.getSaveName();
         System.out.println("Saving player " + this.name + " to " + filename);
 
         // create the file if it doesn't exist
