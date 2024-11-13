@@ -116,6 +116,34 @@ public class Game {
                     player.addAnimal(store.getStock().get(subchoice - 1));
                     store.removeAnimal(subchoice - 1);
 
+                    // notify the player
+                    od.writeLine("Animal purchased!");
+
+                    break;
+                case 3:
+                    int removed = 0;
+                    int ac = player.getAnimalsCount();
+                    for(int i=ac-1; i>=0; i--){
+                        if(player.getAnimals().get(i).getLifetime() == 0){
+                            player.removeAnimal(i);
+                            removed++;
+                        }
+                    }
+                    od.writeLine("You removed " + removed + " animals!");
+                    break;
+                case 4:
+                    // get income from all animals and age them up
+                    for(Animal a : player.getAnimals()){
+                        if(a.getLifetime() == 0){ continue; }
+                        player.addMoney(a.getIncome());
+                        od.writeLine(a.getName() + " has made you " + a.getIncome() + " money!");
+                        a.age();
+                        if(a.getLifetime() == 0 ){
+                            od.writeLine(a.getName() + " has died :(");
+                        }
+                    }
+                    // refresh the shop
+                    store.refresh();
                     break;
                 case 6:
                     running = false;
