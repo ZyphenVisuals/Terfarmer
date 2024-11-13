@@ -112,7 +112,7 @@ public class LocalPlayer implements Player {
      */
     @Override
     public void removeMoney(int money) {
-        if(money >= this.money){
+        if(money > this.money){
             throw new NotEnoughMoneyException("You only have " + this.money + " money.");
         }
         this.money -= money;
