@@ -12,6 +12,9 @@ public class Store {
     private final List<Animal> stock = new ArrayList<>();
     private int size;
 
+    /**
+     * Refresh the store. This generates a new set of animals.
+     */
     public void refresh(){
         stock.clear();
 
@@ -34,6 +37,30 @@ public class Store {
     public Store() {
         this.size = 5;
         this.refresh();
+    }
+
+    /**
+     * Get a list of all the animals for sale today
+     * @return list of animals in the stock
+     */
+    public List<Animal> getStock(){
+        return this.stock;
+    }
+
+    /**
+     * Remove the animal at a certain index in the shop
+     * @param index index of the animal to remove
+     */
+    public void removeAnimal(int index){
+        this.stock.remove(index);
+    }
+
+    /**
+     * Get the size of the daily stock
+     * @return int size
+     */
+    public int getSize(){
+        return this.size;
     }
 
     @Override
