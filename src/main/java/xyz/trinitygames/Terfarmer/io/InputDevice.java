@@ -1,5 +1,8 @@
 package xyz.trinitygames.Terfarmer.io;
 
+import xyz.trinitygames.Terfarmer.exceptions.InvalidChoiceException;
+import xyz.trinitygames.Terfarmer.exceptions.InvalidNameException;
+
 public interface InputDevice {
     /**
      * Reads text from the user
@@ -8,6 +11,7 @@ public interface InputDevice {
      * The text must not start or end with a space
      * The text must not contain adjacent spaces
      * @return string containing the text
+     * @throws InvalidNameException if the above conditions are not met
      */
     String getName();
 
@@ -16,6 +20,8 @@ public interface InputDevice {
      * @param min lower bound (inclusive)
      * @param max upper bound (inclusive)
      * @return int between min and max
+     * @throws InvalidChoiceException if the choice is out of range
+     * @throws IllegalArgumentException if the input is not a number
      */
     int getChoice(int min, int max);
 }
