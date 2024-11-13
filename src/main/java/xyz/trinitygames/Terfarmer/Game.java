@@ -54,7 +54,7 @@ public class Game {
         do {
             // Show the menu
             od.writeLine("");
-            od.writeLine("Your farm has " + player.getMoney() + " money and " + player.getAnimalsCount() + " animals!");
+            od.writeLine("It is day number " + player.getDay() +". Your farm has " + player.getMoney() + " money and " + player.getAnimalsCount() + " animals!");
             od.writeLine("What would you like to do?");
             this.ShowMenu();
 
@@ -144,6 +144,8 @@ public class Game {
                     }
                     // refresh the shop
                     store.refresh();
+                    // increment the day counter
+                    player.incrementDay();
                     break;
                 case 6:
                     running = false;

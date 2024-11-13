@@ -63,5 +63,16 @@ public interface Player {
      */
     void removeMoney(int money);
 
+    /**
+     * Get the current day of the farm
+     * @return int day
+     */
+    int getDay();
+
+    /**
+     * Increment the current day by 1
+     */
+    void incrementDay();
+
     void save();
 }

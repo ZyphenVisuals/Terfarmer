@@ -10,11 +10,13 @@ public class LocalPlayer implements Player {
     String name;
     List<Animal> animals;
     int money;
+    int day;
 
     public LocalPlayer(String name) {
         this.name = name;
         this.money = 300;
         this.animals = new ArrayList<>();
+        this.day = 1;
         // TODO check for saved data
     }
 
@@ -116,6 +118,24 @@ public class LocalPlayer implements Player {
             throw new NotEnoughMoneyException("You only have " + this.money + " money.");
         }
         this.money -= money;
+    }
+
+    /**
+     * Get the current day of the farm
+     *
+     * @return int day
+     */
+    @Override
+    public int getDay() {
+        return this.day;
+    }
+
+    /**
+     * Increment the current day by 1
+     */
+    @Override
+    public void incrementDay() {
+        this.day++;
     }
 
     @Override
