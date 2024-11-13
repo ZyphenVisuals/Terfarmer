@@ -7,8 +7,6 @@ import xyz.trinitygames.Terfarmer.io.OutputDevice;
 import xyz.trinitygames.Terfarmer.player.LocalPlayer;
 import xyz.trinitygames.Terfarmer.player.Player;
 
-import java.util.NoSuchElementException;
-
 public class Game {
     private final InputDevice id;
     private final OutputDevice od;
@@ -31,7 +29,7 @@ public class Game {
     }
 
     public void start(){
-        od.writeLine("Welcome to Terfarmer!");
+        od.writeLine("Welcome, farmer!");
 
         // read the name of the user player
         boolean nameRead = false;
@@ -147,7 +145,16 @@ public class Game {
                     // increment the day counter
                     player.incrementDay();
                     break;
+                case 5:
+                    try {
+                        player.save();
+                        od.writeLine("Game saved successfully!");
+                    } catch (Exception e) {
+                        od.writeLine("An error occurred while saving your progress: "+ e.getMessage()+".");
+                    }
+                    break;
                 case 6:
+                    od.writeLine("Goodbye farmer!");
                     running = false;
                     break;
             }

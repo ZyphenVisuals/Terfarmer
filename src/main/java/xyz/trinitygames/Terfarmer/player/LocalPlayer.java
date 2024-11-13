@@ -2,11 +2,13 @@ package xyz.trinitygames.Terfarmer.player;
 
 import xyz.trinitygames.Terfarmer.animals.Animal;
 import xyz.trinitygames.Terfarmer.exceptions.NotEnoughMoneyException;
+import xyz.trinitygames.Terfarmer.exceptions.SaveFailedException;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocalPlayer implements Player {
+public class LocalPlayer implements Player, Serializable {
     String name;
     List<Animal> animals;
     int money;
@@ -140,6 +142,38 @@ public class LocalPlayer implements Player {
 
     @Override
     public void save() {
-        // TODO learn how to save a class to a file lol
+        // figure out the path to the save folder
+        String filename = System.getProperty("user.home") + File.separatorChar + "Terfarmer";
+
+        // check that the folder exists
+        File folder = new File(filename);
+        if(!folder.exists()){
+            boolean folderCreated = folder.mkdir();
+        }
+
+        // add the name of the save file
+        filename += File.separatorChar + this.name + ".save";
+        System.out.println("Saving player " + this.name + " to " + filename);
+
+        // create the file if it doesn't exist
+        File file = new File(filename);
+        if(!file.exists()){
+            try{
+                boolean fileCreated = file.createNewFile();
+            } catch (IOException e) {
+                throw new SaveFailedException(e.getMessage());
+            }
+        }
+
+        // write the object to it
+        try {
+            FileOutputStream fileOut = new FileOutputStream(filename);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(this);
+            objectOut.close();
+            fileOut.close();
+        } catch (IOException e) {
+            throw new SaveFailedException(e.getMessage());
+        }
     }
 }
