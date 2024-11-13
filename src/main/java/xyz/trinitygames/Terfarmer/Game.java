@@ -1,24 +1,33 @@
 package xyz.trinitygames.Terfarmer;
 
+import xyz.trinitygames.Terfarmer.animals.Animal;
+import xyz.trinitygames.Terfarmer.exceptions.NotEnoughMoneyException;
 import xyz.trinitygames.Terfarmer.io.InputDevice;
 import xyz.trinitygames.Terfarmer.io.OutputDevice;
 import xyz.trinitygames.Terfarmer.player.LocalPlayer;
 import xyz.trinitygames.Terfarmer.player.Player;
 
+import java.util.NoSuchElementException;
+
 public class Game {
     private final InputDevice id;
     private final OutputDevice od;
     private Player player;
+    private Store store;
 
     private void ShowMenu(){
         od.writeLine("1. View animals");
         od.writeLine("2. Buy a new animal");
-        od.writeLine("3. Exit");
+        od.writeLine("3. Remove dead animals");
+        od.writeLine("4. Sleep until tomorrow");
+        od.writeLine("5. Save");
+        od.writeLine("6. Exit");
     }
 
     public Game(InputDevice id, OutputDevice od) {
         this.id = id;
         this.od = od;
+        this.store = new Store();
     }
 
     public void start(){
@@ -32,7 +41,7 @@ public class Game {
                 od.write("Please enter your name: ");
                 name = id.getName();
                 nameRead = true;
-            } catch (IllegalArgumentException e) {
+            } catch (Exception e) {
                 od.writeLine(e.getMessage());
             }
         } while(!nameRead);
@@ -44,6 +53,7 @@ public class Game {
         boolean running = true;
         do {
             // Show the menu
+            od.writeLine("");
             od.writeLine("Your farm has " + player.getMoney() + " money and " + player.getAnimalsCount() + " animals!");
             od.writeLine("What would you like to do?");
             this.ShowMenu();
@@ -53,18 +63,61 @@ public class Game {
             int choice = 0;
             do {
                 try {
-                    choice = id.getChoice(1, 3);
+                    choice = id.getChoice(1, 6);
                     validChoice = true;
-                } catch (IllegalArgumentException e) {
+                } catch (Exception e) {
                     od.writeLine(e.getMessage());
+                    od.write("Please try again: ");
                 }
             } while (!validChoice);
 
             switch (choice) {
-                case 1, 2:
-                    od.writeLine("Not yet");
+                case 1:
+                    if(player.getAnimalsCount() == 0){
+                        od.writeLine("You don't have any animals!");
+                        break;
+                    }
+                    for(Animal a : player.getAnimals()){
+                        od.writeLine(a.toString());
+                    }
                     break;
-                case 3:
+                case 2:
+                    // show the player the shop
+                    od.writeLine("The following animals are available in the daily shop:");
+                    for(int i=0; i<store.getStock().size(); i++){
+                        od.writeLine((i+1) + " " + store.getStock().get(i));
+                    }
+                    od.writeLine("Which animal would you like to buy? (Enter 0 to cancel)");
+
+                    // get the animal to buy
+                    int subchoice = 0;
+                    boolean validSubchoice = false;
+                    do {
+                        try {
+                            subchoice = id.getChoice(0, store.getStock().size());
+                            validSubchoice = true;
+                        } catch (Exception e) {
+                            od.writeLine(e.getMessage());
+                            od.write("Please try again: ");
+                        }
+                    } while (!validSubchoice);
+
+                    if(subchoice == 0) break;
+
+                    // try to remove the money from the player
+                    try {
+                        player.removeMoney(store.getStock().get(subchoice - 1).getValue());
+                    } catch (NotEnoughMoneyException e) {
+                        od.writeLine("Cannot buy the animal. " + e.getMessage());
+                        break;
+                    }
+
+                    // if the transaction worked, transfer the animal
+                    player.addAnimal(store.getStock().get(subchoice - 1));
+                    store.removeAnimal(subchoice - 1);
+
+                    break;
+                case 6:
                     running = false;
                     break;
             }
