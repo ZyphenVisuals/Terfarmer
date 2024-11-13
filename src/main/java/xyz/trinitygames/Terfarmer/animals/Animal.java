@@ -1,6 +1,8 @@
 package xyz.trinitygames.Terfarmer.animals;
 
-public abstract class Animal implements Comparable<Animal> {
+import java.io.Serializable;
+
+public abstract class Animal implements Comparable<Animal>, Serializable {
     String name;
     int value;
     int life;
