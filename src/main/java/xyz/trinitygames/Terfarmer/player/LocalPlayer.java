@@ -19,13 +19,29 @@ public class LocalPlayer implements Player, Serializable {
     }
 
     public LocalPlayer(String name) {
-
-
         this.name = name;
-        this.money = 300;
-        this.animals = new ArrayList<>();
-        this.day = 1;
-        // TODO check for saved data
+
+        String saveName = getSaveName();
+        File saveFile = new File(saveName);
+
+        if(saveFile.exists()) {
+            // load the object
+            try {
+                FileInputStream fileIn = new FileInputStream(saveName);
+                ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+                LocalPlayer savedPlayer = (LocalPlayer) objectIn.readObject();
+                this.animals = savedPlayer.animals;
+                this.money = savedPlayer.money;
+                this.day = savedPlayer.day;
+                fileIn.close();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new SaveFailedException(e.getMessage());
+            }
+        } else {
+            this.money = 300;
+            this.animals = new ArrayList<>();
+            this.day = 1;
+        }
     }
 
     /**
