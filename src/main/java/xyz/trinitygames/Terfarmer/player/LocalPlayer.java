@@ -13,7 +13,7 @@ public class LocalPlayer implements Player {
 
     public LocalPlayer(String name) {
         this.name = name;
-        this.money = 0;
+        this.money = 300;
         this.animals = new ArrayList<>();
         // TODO check for saved data
     }
