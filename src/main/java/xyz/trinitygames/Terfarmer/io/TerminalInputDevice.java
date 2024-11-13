@@ -49,7 +49,13 @@ public class TerminalInputDevice implements InputDevice {
      */
     @Override
     public int getChoice(int min, int max) {
-        int choice = scanner.nextInt();
+        int choice;
+        try {
+            choice = scanner.nextInt();
+        } catch(InputMismatchException e) {
+            scanner.next(); // fixes infinite loop thingy
+            throw new InvalidChoiceException("Choice must be an integer.");
+        }
         if(choice < min || choice > max){
             throw new InvalidChoiceException("Choice must be between " + min + " and " + max + ".");
         }
