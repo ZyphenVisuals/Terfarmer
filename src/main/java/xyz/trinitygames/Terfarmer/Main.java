@@ -5,7 +5,7 @@ import xyz.trinitygames.Terfarmer.io.*;
 
 import java.io.File;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
         // initialize devices
         InputDevice id = new TerminalInputDevice();
