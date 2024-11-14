@@ -19,3 +19,5 @@ The easiest way to run the project is to clone the entire repository and open it
 ## Dependencies
 
 The project only depends on `commons-cli`, which it uses for parsing the command arguments. This should be automatically installed by Maven.
+
+The project requires a Java 23 JDK. Any JDK should work, but I personally use `graalvm-ce-23` and tested `openjdk-23`.
