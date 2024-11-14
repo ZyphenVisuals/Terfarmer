@@ -15,7 +15,7 @@ public class LocalPlayer implements Player, Serializable {
     int day;
 
     private String getSaveName() {
-        return System.getProperty("user.home") + File.separatorChar + "Terfarmer" + File.separatorChar + this.name + ".save";
+        return System.getProperty("user.home") + File.separatorChar + "Terfarmer" + File.separatorChar + "saves" + File.separatorChar + this.name + ".save";
     }
 
     public LocalPlayer(String name) {

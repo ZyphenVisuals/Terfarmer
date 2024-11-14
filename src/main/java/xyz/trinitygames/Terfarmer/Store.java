@@ -62,16 +62,4 @@ public class Store {
     public int getSize(){
         return this.size;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (int i=0; i < this.size; i++) {
-            s.append(i+1);
-            s.append(". ");
-            s.append(stock.get(i));
-            s.append("\n");
-        }
-        return s.toString();
-    }
 }
