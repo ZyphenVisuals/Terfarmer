@@ -12,6 +12,7 @@ public class Main {
         OutputDevice od = null;
 
         // read command line options
+        // https://stackoverflow.com/a/367714
         Options options = new Options();
         Option OutputDeviceOption = new Option("o", "outputDevice", true, "Output device. \nMust be one of: \"terminal\", \"terminal_log\"");
         OutputDeviceOption.setRequired(true);
@@ -19,7 +20,7 @@ public class Main {
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
-        CommandLine cmd = null;//not a good practice, it serves it purpose
+        CommandLine cmd = null;
 
         try {
             cmd = parser.parse(options, args);
